@@ -11,7 +11,8 @@ topic, again using the StreamNative connector.
 
 ## Issue Description
 For this job we're joining data from multiple table, using the following query defined here: src/main/java/be/flink/sql/join/sample/database/Queries.java
-``
+
+```
 "SELECT PAA30.WRK_SDL_DEF_NO as id,\n" +
 "       PAA33.DSB_TX as description,\n" +
 "       '1' as typeCode,\n" +
@@ -37,7 +38,7 @@ For this job we're joining data from multiple table, using the following query d
 "INNER JOIN PAA31 ON PAA30.WRK_SDL_DEF_NO = PAA31.WRK_SDL_DEF_NO\n" +
 "INNER JOIN PAA33 ON PAA30.WRK_SDL_DEF_NO = PAA33.WRK_SDL_DEF_NO AND PAA33.LGG_CD = 'NL'\n" +
 "INNER JOIN PAA32 ON PAA30.WRK_SDL_DEF_NO = PAA32.WRK_SDL_DEF_NO";
-``
+```
 
 When running this exact job a few times consecutive, we get mixed and inconsistent results. The expected result for the query
 (running this query against the static database) is 1750 results. When running the query in the Flink job we get below results:
