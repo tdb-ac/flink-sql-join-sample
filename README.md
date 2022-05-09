@@ -80,8 +80,7 @@ Resulted in 1262 result messages on sink topic
 ![img.png](assets/flink-job-run-4.png)
 
 Resulted in 1298 result messages on sink topic
-
-The amount of records sent from the sources is for all jobs the same, implying the sources do not cause the inconsistency of the data. 
+ 
 
 ## Implication
 Because of these inconsistent results it's hard to trust the data will be correctly synced between the old and new application,
