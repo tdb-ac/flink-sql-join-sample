@@ -22,8 +22,8 @@ public class Queries {
             "       PAA30.REG_USER_CD as createdBy,\n" +
             "       PAA30.REG_TS as createdTimeStamp,\n" +
             "       PAA30.MUT_USER_CD as updatedBy,\n" +
-            "       PAA30.MUT_TS as updatedTimeStamp,\n" +
-            "       PAA30.event_time as cdcEventTime\n" +
+            "       PAA30.MUT_TS as updatedTimeStamp\n" +
+            //"       PAA30.event_time as cdcEventTime\n" +
             "FROM PAA30\n" +
             "INNER JOIN PAA31 ON PAA30.WRK_SDL_DEF_NO = PAA31.WRK_SDL_DEF_NO\n" +
             "INNER JOIN PAA33 ON PAA30.WRK_SDL_DEF_NO = PAA33.WRK_SDL_DEF_NO AND PAA33.LGG_CD = 'NL'\n" +

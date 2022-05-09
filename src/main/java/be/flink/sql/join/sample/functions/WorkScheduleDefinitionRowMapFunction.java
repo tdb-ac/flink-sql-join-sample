@@ -34,7 +34,7 @@ public class WorkScheduleDefinitionRowMapFunction implements MapFunction<Row, Wo
                 .setCreatedBy(StringUtils.trim(row.getFieldAs("createdBy")))
                 .setCreatedTimeStamp(row.getFieldAs("createdTimeStamp"))
                 .setUpdatedBy(StringUtils.trim(row.getFieldAs("updatedBy")))
-                .setUpdatedTimeStamp(row.getFieldAs("updatedTimeStamp"))
-                .setCdcEventTime(((LocalDateTime) row.getFieldAs("cdcEventTime")).toInstant(ZoneOffset.UTC).toEpochMilli());
+                .setUpdatedTimeStamp(row.getFieldAs("updatedTimeStamp"));
+                //.setCdcEventTime(((LocalDateTime) row.getFieldAs("cdcEventTime")).toInstant(ZoneOffset.UTC).toEpochMilli());
     }
 }

@@ -1,5 +1,6 @@
 package be.flink.sql.join.sample.database;
 
+import be.flink.sql.join.sample.io.LocalSource;
 import be.flink.sql.join.sample.io.PulsarSource;
 
 public class Tables {
@@ -7,7 +8,7 @@ public class Tables {
     public static final String WORK_SCHEDULE_DEFINITION_TABLE = "GBTPAA30";
     private static final String WORK_SCHEDULE_DEFINITION_TABLE_DEFINITION =
             "CREATE TABLE IF NOT EXISTS PAA30 (\n" +
-                    "    event_time         TIMESTAMP(3) METADATA FROM 'value.source.timestamp' VIRTUAL," +
+                    //"    event_time         TIMESTAMP(3) METADATA FROM 'value.source.timestamp' VIRTUAL," +
                     "    WRK_SDL_DEF_NO     STRING,\n" +
                     "    WRK_SDL_DEF_NM     STRING,\n" +
                     "    LOG_DLT_IC         STRING,\n" +
@@ -75,19 +76,19 @@ public class Tables {
                     "    PRIMARY KEY (WRK_SDL_DEF_NO, LGG_CD) NOT ENFORCED\n" +
                     ") WITH (%s)";
 
-    public static String getWorkScheduleDefinitionTable(PulsarSource source) {
+    public static String getWorkScheduleDefinitionTable(LocalSource source) {
         return String.format(WORK_SCHEDULE_DEFINITION_TABLE_DEFINITION, source.build());
     }
 
-    public static String getWorkScheduleDefinitionStateTable(PulsarSource source) {
+    public static String getWorkScheduleDefinitionStateTable(LocalSource source) {
         return String.format(WORK_SCHEDULE_DEFINITION_STATE_TABLE_DEFINITION, source.build());
     }
 
-    public static String getWorkScheduleDefinitionElementTable(PulsarSource source) {
+    public static String getWorkScheduleDefinitionElementTable(LocalSource source) {
         return String.format(WORK_SCHEDULE_DEFINITION_ELEMENT_TABLE_DEFINITION, source.build());
     }
 
-    public static String getWorkScheduleDefinitionDescriptionTable(PulsarSource source) {
+    public static String getWorkScheduleDefinitionDescriptionTable(LocalSource source) {
         return String.format(WORK_SCHEDULE_DEFINITION_DESCRIPTION_TABLE_DEFINITION, source.build());
     }
 }
