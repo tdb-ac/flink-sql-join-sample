@@ -2,6 +2,8 @@ package be.flink.sql.join.sample;
 
 import org.apache.flink.api.java.utils.ParameterTool;
 import org.apache.flink.configuration.Configuration;
+import org.apache.flink.runtime.state.hashmap.HashMapStateBackend;
+import org.apache.flink.streaming.api.CheckpointingMode;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 import org.apache.flink.table.api.bridge.java.StreamTableEnvironment;
 
@@ -28,8 +30,15 @@ public abstract class FlinkJobBase {
         String jobName = properties.getProperty("artifactId") + " " + properties.getProperty("version");
         environment = StreamExecutionEnvironment.getExecutionEnvironment();
         environment.enableCheckpointing(checkpointInterval);
+        environment.getCheckpointConfig().setCheckpointingMode(CheckpointingMode.AT_LEAST_ONCE);
+        environment.getCheckpointConfig().setMinPauseBetweenCheckpoints(500);
+        environment.getCheckpointConfig().setCheckpointTimeout(60000);
         tableEnvironment = StreamTableEnvironment.create(environment);
+
         Configuration configuration = tableEnvironment.getConfig().getConfiguration();
+        configuration.setString("table.exec.mini-batch.enabled", "true"); // enable mini-batch optimization
+        configuration.setString("table.exec.mini-batch.allow-latency", "5 s"); // use 5 seconds to buffer input records
+        configuration.setString("table.exec.mini-batch.size", "5000");
         configuration.setString("pipeline.name", jobName);
         extractJobArguments(args);
     }

@@ -24,9 +24,9 @@ public class WorkScheduleDefinitionJoinJob extends FlinkJobBase {
 
     private void execute() throws Exception {
         DataStream<Row> inputStream = createJoinedTable();
-        DataStream<WorkScheduleDefinitionRow> mappedStream = inputStream
-                .map(new WorkScheduleDefinitionRowMapFunction());
-        mappedStream.print();
+        //DataStream<WorkScheduleDefinitionRow> mappedStream = inputStream
+        //        .map(new WorkScheduleDefinitionRowMapFunction());
+        inputStream.print();
         environment.execute("WorkScheduleDefinition Joining Job " + runId);
     }
 
