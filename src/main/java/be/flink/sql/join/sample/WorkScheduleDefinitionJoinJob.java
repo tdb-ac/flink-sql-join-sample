@@ -9,7 +9,9 @@ import be.flink.sql.join.sample.io.PulsarSink;
 import be.flink.sql.join.sample.io.PulsarSource;
 import org.apache.flink.streaming.api.datastream.DataStream;
 import org.apache.flink.streaming.connectors.pulsar.FlinkPulsarSink;
+import org.apache.flink.table.api.Schema;
 import org.apache.flink.table.api.Table;
+import org.apache.flink.table.connector.ChangelogMode;
 import org.apache.flink.types.Row;
 
 public class WorkScheduleDefinitionJoinJob extends FlinkJobBase {
@@ -41,7 +43,28 @@ public class WorkScheduleDefinitionJoinJob extends FlinkJobBase {
         tableEnvironment.executeSql(Tables.getWorkScheduleDefinitionDescriptionTable(
                LocalSource.createForTable(Tables.WORK_SCHEDULE_DEFINITION_DESCRIPTION_TABLE)));
         Table joinedTable = tableEnvironment.sqlQuery(Queries.JOIN_WORK_SCHEDULE_DEFINITIONS);
-        return tableEnvironment.toChangelogStream(joinedTable);
+        return tableEnvironment.toChangelogStream(joinedTable, Schema.newBuilder()
+                .column("id", "STRING NOT NULL")
+                .column("description", "STRING")
+                .column("typeCode", "CHAR(1) NOT NULL")
+                .column("employerId", "STRING")
+                .column("companyOrganisationNumber", "STRING")
+                .column("historyFromDate", "BIGINT")
+                .column("historyUntilDate", "BIGINT")
+                .column("referenceStartDate", "BIGINT")
+                .column("active", "STRING")
+                .column("hoursPerDay", "DECIMAL(5, 2)")
+                .column("dayNumber", "INT NOT NULL")
+                .column("sequenceInDay", "INT NOT NULL")
+                .column("hourQuantity", "DECIMAL(5, 2)")
+                .column("performanceCode", "STRING")
+                .column("costCode", "STRING")
+                .column("shiftCode", "STRING")
+                .column("createdBy", "STRING")
+                .column("createdTimeStamp", "BIGINT")
+                .column("updatedBy", "STRING")
+                .column("updatedTimeStamp", "BIGINT")
+                .build(), ChangelogMode.upsert());
     }
 
 }
