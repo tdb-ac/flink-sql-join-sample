@@ -1,7 +1,6 @@
 package be.flink.sql.join.sample.database;
 
 import be.flink.sql.join.sample.io.LocalSource;
-import be.flink.sql.join.sample.io.PulsarSource;
 
 public class Tables {
 

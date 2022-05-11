@@ -1,12 +1,9 @@
 package be.flink.sql.join.sample.io;
 
-import org.apache.commons.lang3.StringUtils;
-
 import java.util.Locale;
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class LocalSource {
 

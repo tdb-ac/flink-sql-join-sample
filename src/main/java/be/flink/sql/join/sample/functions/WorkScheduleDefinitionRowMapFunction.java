@@ -6,8 +6,6 @@ import org.apache.flink.api.common.functions.MapFunction;
 import org.apache.flink.types.Row;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
-import java.time.ZoneOffset;
 
 public class WorkScheduleDefinitionRowMapFunction implements MapFunction<Row, WorkScheduleDefinitionRow> {
 
