@@ -43,7 +43,7 @@ public abstract class FlinkJobBase {
         pulsarTenant = paramTool.get("PULSAR_TENANT", "connect-evolution");
         pulsarNamespace = paramTool.get("PULSAR_NAMESPACE", "calendar-acl");
         pulsarSourceDbName = paramTool.get("PULSAR_SOURCE_DB_NAME", "cdc");
-        pulsarSourceDbSchema = paramTool.get("PULSAR_SOURCE_DB_SCHEMA", "SCHEMA");
+        pulsarSourceDbSchema = paramTool.get("PULSAR_SOURCE_DB_SCHEMA", "ACERTA");
     }
 
 }

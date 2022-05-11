@@ -75,6 +75,41 @@ public class Tables {
                     "    PRIMARY KEY (WRK_SDL_DEF_NO, LGG_CD) NOT ENFORCED\n" +
                     ") WITH (%s)";
 
+    public static final String JOINED_TABLE_DEFINITION =
+            "CREATE TABLE IF NOT EXISTS JOINED_RESULT (\n" +
+                    "   id                          STRING NOT NULL,\n" +
+                    "   description                 STRING,\n" +
+                    "   typeCode                    CHAR(1) NOT NULL,\n" +
+                    "   employerId                  STRING,\n" +
+                    "   companyOrganisationNumber   STRING,\n" +
+                    "   historyFromDate             BIGINT,\n" +
+                    "   historyUntilDate            BIGINT,\n" +
+                    "   referenceStartDate          BIGINT,\n" +
+                    "   active                      STRING,\n" +
+                    "   hoursPerDay                 DECIMAL(5, 2),\n" +
+                    "   dayNumber                   INT NOT NULL,\n" +
+                    "   sequenceInDay               INT NOT NULL,\n" +
+                    "   hourQuantity                DECIMAL(5, 2),\n" +
+                    "   performanceCode             STRING,\n" +
+                    "   costCode                    STRING,\n" +
+                    "   shiftCode                   STRING,\n" +
+                    "   createdBy                   STRING,\n" +
+                    "   createdTimeStamp            BIGINT,\n" +
+                    "   updatedBy                   STRING,\n" +
+                    "   updatedTimeStamp            BIGINT,\n" +
+                    "   cdcEventTime                TIMESTAMP(3),\n" +
+                    "   PRIMARY KEY (id) NOT ENFORCED\n" +
+                    ")\n" +
+                    "WITH (\n" +
+                        "'properties.pulsar.producer.block-if-queue-full' = 'true'," +
+                        "'connector' = 'upsert-pulsar'," +
+                        "'topic' = 'persistent://connect-evolution/calendar-acl/test-upsert'," +
+                        "'service-url' = 'pulsar://localhost:6650'," +
+                        "'admin-url' = 'http://localhost:8090'," +
+                        "'key.format' = 'json'," +
+                        "'value.format' = 'json'" +
+                    ")";
+
     public static String getWorkScheduleDefinitionTable(PulsarSource source) {
         return String.format(WORK_SCHEDULE_DEFINITION_TABLE_DEFINITION, source.build());
     }
@@ -89,5 +124,9 @@ public class Tables {
 
     public static String getWorkScheduleDefinitionDescriptionTable(PulsarSource source) {
         return String.format(WORK_SCHEDULE_DEFINITION_DESCRIPTION_TABLE_DEFINITION, source.build());
+    }
+
+    public static String getJoinedTable() {
+        return JOINED_TABLE_DEFINITION;
     }
 }
